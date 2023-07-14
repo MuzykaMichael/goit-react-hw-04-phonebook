@@ -9,13 +9,8 @@ import {Container,
 import { useState, useEffect } from "react";
 
 export const App =()=> {
-  const [contacts,setContacts] = useState(()=>{
-    if (JSON.parse(localStorage.getItem('contacts'))===null){
-      return [];
-    } else {
-      return (JSON.parse(localStorage.getItem('contacts')))
-    }
-  });
+  const [contacts,setContacts] = useState(()=>
+    JSON.parse(localStorage.getItem('contacts')) ?? [ ]);
   const [filter,setFilter] = useState('');
   useEffect (()=>{
     localStorage.setItem('contacts',JSON.stringify(contacts))
