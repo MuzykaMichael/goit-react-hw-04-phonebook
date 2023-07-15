@@ -1,38 +1,35 @@
-import { Component } from "react";
+import { useState } from "react";
 import { Forma, Label, Input, BtnSubmit } from "./Form.styled";
 import propTypes from 'prop-types'
 import {nanoid} from 'nanoid'
 
-export class Form extends Component{
-    state = {
-        name:'',
-        number:'',
+export const Form =({onSubmit})=>{
+    const [name,setName] = useState("");
+    const [number,setNumber] = useState("");
+
+    const formChangeName = evt => {
+        const {value} = evt.target;
+        setName(value)
+    };
+    const formChangeNumber = evt => {
+        const {value} = evt.target;
+        setNumber(value);
     }
 
-    formChange = evt => {
-        const {name,value} = evt.target;
-        this.setState({[name]:value})
-    };
-
-    formSubmit = evt =>{
+    const formSubmit = evt =>{
         evt.preventDefault();
-        const {name,number} = this.state;
         const contact = {name,number,id:nanoid()};
-        this.props.onSubmit(contact);
-        this.clear();
+        onSubmit(contact);
+        clear();
     }
 
-    clear = () => {
-        this.setState({
-            name:'',
-            number:'',
-        })
+    const clear = () => {
+        setName("");
+        setNumber("");
     };
 
-    render(){
-        const {name,number} = this.state;
         return(
-            <Forma onSubmit={this.formSubmit}>
+            <Forma onSubmit={formSubmit}>
                 <Label>Name
                     <Input
                     type="text"
@@ -40,7 +37,7 @@ export class Form extends Component{
                     id="input-name"
                     value={name}
                     required
-                    onChange={this.formChange}
+                    onChange={formChangeName}
                     pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                     />
                 </Label>
@@ -52,7 +49,7 @@ export class Form extends Component{
                     id="input-phone"
                     pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
                     required
-                    onChange={this.formChange}
+                    onChange={formChangeNumber}
                     value={number}
                     />
                 </Label>
@@ -61,7 +58,6 @@ export class Form extends Component{
                 >Add Contact</BtnSubmit>
             </Forma>
         )
-    }
 }
 
 

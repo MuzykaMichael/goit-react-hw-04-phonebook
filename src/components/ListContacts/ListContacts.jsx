@@ -1,11 +1,8 @@
-import { Component } from "react";
 import propTypes from 'prop-types'
 import { ContactsList } from "./ListContacts.styled";
 import { Contact } from "components/Contact/Contact";
 
-export class ListContacts extends Component{
-    render() {
-        const {contacts} = this.props;
+export const ListContacts = ({contacts,handleDelete}) =>{
         return(
             <ContactsList>
                 {contacts.map(({name,number,id}) =>{
@@ -15,13 +12,12 @@ export class ListContacts extends Component{
                         id={id}
                         name={name}
                         number={number}
-                        onDeleteContact={this.props.handleDelete}
+                        onDeleteContact={handleDelete}
                         />
                     );
                 })}
             </ContactsList>
         )
-    }
 }
 
 

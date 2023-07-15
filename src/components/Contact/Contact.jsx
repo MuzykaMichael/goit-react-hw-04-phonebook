@@ -1,16 +1,13 @@
-import { Component } from "react";
 import propTypes from 'prop-types'
 import {ContactLi,BtnDelete} from './Contact.styled'
 
 
-export class Contact extends Component{
-    deleteContact = id => {
-        this.props.onDeleteContact(id);
+export const Contact = ({name,number,id,onDeleteContact}) =>{
+    const deleteContact = id => {
+        onDeleteContact(id);
     };
 
 
-render() {
-    const {name,number,id} = this.props;
     return(
         <ContactLi>
             <p>
@@ -19,12 +16,12 @@ render() {
             <BtnDelete
             type="button"
             onClick={()=>{
-                this.deleteContact(id);
+                deleteContact(id);
             }}
             >Delete</BtnDelete>
         </ContactLi>
     )
-}
+
 
 
 }
